@@ -23,38 +23,25 @@ zen open my-project      # opens that folder in your editor
 `zen open` launches the editor you already use - the one this terminal belongs
 to, or `$ZENERA_EDITOR`, or the first of VS Code, Cursor, Windsurf, Zed, Sublime
 Text or IntelliJ it can find; `--editor <cmd>` names one outright. On the way in
-it rewrites `.vscode/settings.json` and the `.github/` tree, so the chat
-commands below are always the current ones.
+it rewrites `.vscode/settings.json` and the `.github/` tree, so the commands
+below are always the current ones.
 
-Then, in that window:
+Then, in the editor:
 
 1. **Edit `SPECIFICATION.md`.** What the system is for, which agents exist, what
    each may reach for, and what _done_ means.
-2. **Open the chat panel and send `/spec-sync-project`.**
+2. **Save the file, then run `zen meta run my-project /spec-sync-project` in the
+   terminal.**
 3. **Answer `SPECIFICATION-FEEDBACK.md`.** It is a questionnaire: every question
    carries two to four written-out answers, each with a `[ ]` box. Put an `x` in
    the box of the one you want, delete the ones you do not, or write your own in
    their place - any of those is an answer.
-4. **Send `/spec-apply-feedback`.** It folds the answers you chose into
-   `SPECIFICATION.md` - which is why you never edit a prompt to fix a
-   specification problem - and then `/spec-sync-project` again.
+4. **Run `zen meta run my-project /spec-apply-feedback` in the terminal.** It
+   folds the answers you chose into `SPECIFICATION.md` - which is why you never
+   edit a prompt to fix a specification problem - and then `zen meta run
+my-project /spec-sync-project` again.
 
 Back in the terminal: `zen check`, `scripts/_setup.sh`, `zen run`.
-
-`zen init` installs five prompt files under `.github/prompts/`, which VS Code
-and its forks offer as chat slash-commands:
-
-| In chat                | Does                                                             |
-| ---------------------- | ---------------------------------------------------------------- |
-| `/spec-sync-project`   | Makes every file match `SPECIFICATION.md`, both directions.      |
-| `/spec-apply-feedback` | Folds your answers in `SPECIFICATION-FEEDBACK.md` into the spec. |
-| `/project-review`      | Reads the project as a reviewer would, and reports.              |
-| `/new-agent`           | Adds an agent - prompt, wiring and hand-offs.                    |
-| `/new-skill`           | Adds a skill under `agents/skills/`.                             |
-
-In an editor with no support for prompt files, paste the contents of
-`.github/prompts/spec-sync-project.prompt.md` into its chat instead - it is only a
-prompt, and it says everything it needs about where to look.
 
 ## The loop
 
@@ -85,9 +72,8 @@ project whose specification is no longer true is a project with no specification
 ### `/spec-sync-project`
 
 `zen init` installs `.github/prompts/spec-sync-project.prompt.md`, so the command
-is available in your editor's chat from the first minute - type `/` in the chat
-panel and it is in the list. It is a long prompt and worth reading once; in
-outline it:
+is available from the first minute when you run `zen meta run <project>
+/spec-sync-project`. It is a long prompt and worth reading once; in outline it:
 
 1. **Reads everything before editing anything** - the specification, then
    `agents.yaml`, the house rules under `agents/`, every prompt, every skill, the
